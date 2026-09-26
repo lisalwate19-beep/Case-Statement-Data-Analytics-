@@ -1,0 +1,38 @@
+-- Step 1: Create a Database/Catalog
+CREATE CATALOG IF NOT EXISTS bright;
+
+-- Step 2: Create a Schema
+CREATE SCHEMA IF NOT EXISTS bright.payments;
+
+-- Step 3: Remove the old table (if it exists)
+DROP TABLE IF EXISTS bright.payments.table;
+
+-- Step 4: Create a Table
+CREATE TABLE IF NOT EXISTS bright.payments.table (
+    class_ID INT,
+    amount INT,
+    payment_method STRING
+    
+    );
+
+-- Step 5: Insert the information into the table
+INSERT INTO bright.payments.table VALUES 
+(1, 50.00, 'Card'),
+(2, 200.00, 'Cash'),
+(3, 150.00, 'Card'),
+(4,  75.00, 'PayPal'),
+(5, 300.00, 'Cash');
+
+-- Step 6: Check if the table was created correctly
+SELECT *
+FROM bright.payments.table;
+
+SELECT
+    class_ID,
+    amount,
+    payment_method,
+    CASE
+        WHEN payment_method = 'Cash' AND amount >= 200 THEN 'Eligible for Discount'
+        ELSE 'Not Eligible'
+    END AS discount_eligibility
+FROM bright.payments.table;

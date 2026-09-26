@@ -1,0 +1,38 @@
+--Step 1: Create a Database/Catalog
+CREATE CATALOG IF NOT EXISTS bright;
+
+--Step 2: Creat a Schema 
+CREATE SCHEMA IF NOT EXISTS bright.employees;
+
+--Step 3: Remove the old table (if it exists)
+DROP TABLE IF EXISTS bright.employees.table;
+
+--Step 4: Create a Table 
+CREATE TABLE IF NOT EXISTS bright.employees.table (
+emp_ID INT,
+emp_name STRING,
+department STRING,
+salary INT
+);
+
+--Step 5: Insert the information into the table 
+INSERT INTO bright.employees.table VALUES
+(1, 'John', 'IT', 85000),
+(2, 'Sara', 'HR', 60000),
+(3, 'Mark', 'IT', 75000),
+(4, 'Lucy', 'Finance', 95000),
+(5, 'Tom', 'IT', 55000);
+
+--Step 6: Check if the table is created correctly
+SELECT*
+FROM bright.employees.table;
+
+SELECT
+    emp_name,
+    department,
+    salary,
+    CASE
+        WHEN department = 'IT' AND salary > 8000 THEN 'Senior IT'
+        WHEN department = 'HR' AND salary > 55000 THEN 'Experienced HR'
+    END AS position_level
+FROM bright.employees.table;
